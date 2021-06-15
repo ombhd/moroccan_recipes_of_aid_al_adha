@@ -8,26 +8,26 @@ import '../search/search_page.dart';
 import '../../utils/theme.dart';
 
 class NavPage extends StatefulWidget {
-  static const routeName = '/nav';
+  static const routeName = '/';
 
   @override
   _NavPageState createState() => _NavPageState();
 }
 
 class _NavPageState extends State<NavPage> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 2;
 
   final List<Widget> _screens = [
-    HomePage(),
-    FavoritesPage(),
     SearchPage(),
+    FavoritesPage(),
+    HomePage(),
   ];
 
-  // void _onPageChanged(int index) {
-  // setState(() {
-  //   _selectedIndex = index;
-  // });
-  // }
+  void _onPageChanged(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   PageController _controller = PageController();
 
@@ -49,16 +49,16 @@ class _NavPageState extends State<NavPage> {
         extendBody: true,
         body: PageView(
           children: _screens,
-          // onPageChanged: _onPageChanged,
+          onPageChanged: _onPageChanged,
           controller: _controller,
-          physics: NeverScrollableScrollPhysics(),
+          // physics: NeverScrollableScrollPhysics(),
         ),
 
         // bottom navigation bar
         bottomNavigationBar: Container(
           margin: EdgeInsets.only(
-              right: size.width * 6,
-              left: size.width * 6,
+              right: size.width * 12,
+              left: size.width * 12,
               bottom: size.height * 1.0),
           padding: EdgeInsets.symmetric(
             vertical: size.height * 0.5,
@@ -69,10 +69,9 @@ class _NavPageState extends State<NavPage> {
               color: const Color(0xffffffff),
               boxShadow: [
                 BoxShadow(
-                  color: const Color(0xff000000).withOpacity(0.5),
-                  spreadRadius: 0.1,
-                  blurRadius: 5.0,
-                  // offset: Offset(3, 3),
+                  color: const Color(0xffadadad).withAlpha(200),
+                  spreadRadius: 0.02,
+                  blurRadius: 6.0,
                 )
               ]),
           width: size.width * 80,
@@ -86,7 +85,6 @@ class _NavPageState extends State<NavPage> {
               color: const Color(0xff000000).withAlpha(120),
               tabBorder: Border.all(
                 width: 0.0,
-                // color: theme.primaryColor.withAlpha(150),
                 color: const Color(0xff000000).withAlpha(0),
               ),
               tabActiveBorder:
@@ -96,31 +94,27 @@ class _NavPageState extends State<NavPage> {
               duration: Duration(milliseconds: 300),
               gap: 6.0,
               iconSize: 26.0,
-              // tabBackgroundColor: const Color(0xffffcc80),
               padding: EdgeInsets.symmetric(
                 horizontal: size.width * 4.0,
                 vertical: 5.0,
               ),
               tabs: [
                 GButton(
-                  icon: Icons.home,
-                  text: 'الرئيسية',
-                  iconActiveColor: theme.primaryColor,
-                  // activeBorder: Border.all(color: theme.primaryColor),
-                  backgroundColor: theme.primaryColor.withAlpha(40),
+                  icon: Icons.search,
+                  text: 'بحث',
+                  iconActiveColor: Colors.blue,
+                  backgroundColor: Colors.blue.withAlpha(40),
                 ),
                 GButton(
                     icon: Icons.favorite,
-                    text: 'المفضلات',
+                    text: 'المفضلة',
                     iconActiveColor: Colors.red,
-                    // activeBorder: Border.all(color: Colors.red),
                     backgroundColor: Colors.red.withAlpha(40)),
                 GButton(
-                  icon: Icons.search,
-                  text: 'بحث',
-                  iconActiveColor: Colors.green,
-                  // activeBorder: Border.all(color: Colors.green),
-                  backgroundColor: Colors.green.withAlpha(40),
+                  icon: Icons.home,
+                  text: 'الرئيسية',
+                  iconActiveColor: theme.primaryColor,
+                  backgroundColor: theme.primaryColor.withAlpha(40),
                 ),
               ]),
         ),
