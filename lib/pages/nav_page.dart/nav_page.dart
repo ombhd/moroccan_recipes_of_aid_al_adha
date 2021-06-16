@@ -29,7 +29,7 @@ class _NavPageState extends State<NavPage> {
     });
   }
 
-  PageController _controller = PageController();
+  PageController _controller = PageController(initialPage: 2);
 
   void _onTabChanged(int index) {
     _controller.animateToPage(
@@ -51,7 +51,6 @@ class _NavPageState extends State<NavPage> {
           children: _screens,
           onPageChanged: _onPageChanged,
           controller: _controller,
-          // physics: NeverScrollableScrollPhysics(),
         ),
 
         // bottom navigation bar

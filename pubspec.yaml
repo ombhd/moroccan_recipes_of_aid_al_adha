@@ -30,6 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_nav_bar: ^5.0.5
   google_fonts_arabic: ^1.1.7
+  provider: ^5.0.0
 
 dev_dependencies:
   flutter_test:

@@ -42,14 +42,14 @@ final theme = ThemeData(
       headline6: TextStyle(
         fontFamily: ArabicFonts.Harmattan,
         package: 'google_fonts_arabic',
-        fontSize: 15,
+        fontSize: 25.0,
         fontWeight: FontWeight.bold,
         color: const Color(0xff689f38),
       ),
       headline5: TextStyle(
         fontFamily: ArabicFonts.Harmattan,
         package: 'google_fonts_arabic',
-        fontSize: 18,
+        fontSize: 26.0,
         fontWeight: FontWeight.bold,
         color: const Color(0xff689f38),
       ),

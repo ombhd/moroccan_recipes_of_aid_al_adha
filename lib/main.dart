@@ -1,15 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import 'models/Recipes.dart';
+import 'models/favorites_model.dart';
 import 'pages/nav_page.dart/nav_page.dart';
 import 'utils/routes.dart';
 import 'utils/theme.dart';
 
 void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    title: 'Alhanae Accessoire',
-    theme: theme,
-    initialRoute: NavPage.routeName,
-    routes: routes,
+  Recipes recipes = Recipes();
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider.value(value: recipes),
+      ChangeNotifierProvider<Favorites>.value(
+          value: recipes.favorites as Favorites),
+    ],
+    child: MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'aid al-adha recipes',
+      theme: theme,
+      initialRoute: NavPage.routeName,
+      routes: routes,
+    ),
   ));
 }
