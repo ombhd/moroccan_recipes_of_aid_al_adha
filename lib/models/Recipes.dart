@@ -175,7 +175,8 @@ class Recipes extends ChangeNotifier {
 
   Recipes({this.favorites}) {
     //  you should import the favorites from device storage
-    if (favorites == null) favorites = Favorites();
+    if (favorites == null) favorites = Favorites([]);
+   
   }
 
   Recipe operator [](int index) => items[index];
