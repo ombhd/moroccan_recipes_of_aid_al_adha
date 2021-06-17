@@ -4,7 +4,6 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 
 import '../favorites/favorites_page.dart';
 import '../home/home_page.dart';
-import '../search/search_page.dart';
 import '../../utils/theme.dart';
 
 class NavPage extends StatefulWidget {
@@ -15,10 +14,9 @@ class NavPage extends StatefulWidget {
 }
 
 class _NavPageState extends State<NavPage> {
-  int _selectedIndex = 2;
+  int _selectedIndex = 1;
 
   final List<Widget> _screens = [
-    SearchPage(),
     FavoritesPage(),
     HomePage(),
   ];
@@ -29,7 +27,7 @@ class _NavPageState extends State<NavPage> {
     });
   }
 
-  PageController _controller = PageController(initialPage: 2);
+  PageController _controller = PageController(initialPage: 1);
 
   void _onTabChanged(int index) {
     _controller.animateToPage(
@@ -56,8 +54,8 @@ class _NavPageState extends State<NavPage> {
         // bottom navigation bar
         bottomNavigationBar: Container(
           margin: EdgeInsets.only(
-              right: size.width * 12,
-              left: size.width * 12,
+              right: size.width * 25,
+              left: size.width * 25,
               bottom: size.height * 1.0),
           padding: EdgeInsets.symmetric(
             vertical: size.height * 0.5,
@@ -99,12 +97,6 @@ class _NavPageState extends State<NavPage> {
               ),
               tabs: [
                 GButton(
-                  icon: Icons.search,
-                  text: 'بحث',
-                  iconActiveColor: Colors.blue,
-                  backgroundColor: Colors.blue.withAlpha(40),
-                ),
-                GButton(
                     icon: Icons.favorite,
                     text: 'المفضلة',
                     iconActiveColor: Colors.red,
@@ -118,8 +110,6 @@ class _NavPageState extends State<NavPage> {
               ]),
         ),
       ),
-      // ),
-      // ),
     );
   }
 }

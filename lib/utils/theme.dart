@@ -17,7 +17,7 @@ final theme = ThemeData(
       headline6: TextStyle(
         fontFamily: ArabicFonts.Harmattan,
         package: 'google_fonts_arabic',
-        fontSize: 20,
+        fontSize: 22,
         fontWeight: FontWeight.bold,
         color: const Color(0xff689f38),
       ),
@@ -56,18 +56,17 @@ final theme = ThemeData(
       headline4: TextStyle(
         fontFamily: ArabicFonts.Harmattan,
         package: 'google_fonts_arabic',
-        fontSize: 19.5,
+        fontSize: 21.5,
         fontWeight: FontWeight.bold,
         color: const Color(0xff689f38),
       ),
-
-      // headline3 is reserved for sidebar menu items, don't use it for something else
       headline3: TextStyle(
         fontFamily: ArabicFonts.Harmattan,
         package: 'google_fonts_arabic',
-        fontSize: 17,
-        fontWeight: FontWeight.w600,
-        color: const Color(0xFFE8D6FF),
+        fontSize: 20.0,
+        // fontWeight: FontWeight.w600,
+
+        color: const Color(0xff689f38),
       ),
       headline2: TextStyle(
         fontFamily: ArabicFonts.Harmattan,

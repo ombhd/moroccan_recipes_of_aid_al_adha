@@ -1,12 +1,17 @@
 import 'package:aid_adha_recipes/models/Recipes.dart';
 import 'package:aid_adha_recipes/models/favorites_model.dart';
+import 'package:aid_adha_recipes/pages/recipe_details/components/heading.dart';
 import 'package:aid_adha_recipes/utils/context_size.dart';
 import 'package:aid_adha_recipes/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'components/elements_column.dart';
+
 class RecipeDetailsPage extends StatelessWidget {
   static const routeName = '/recipe-details';
+
+  static const double fixedHorizontalPadding = 12.0;
 
   const RecipeDetailsPage({
     Key? key,
@@ -19,9 +24,6 @@ class RecipeDetailsPage extends StatelessWidget {
     final recipe = recipes.getRecipeByID(id);
     final size = SizeContext(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(recipe.title),
-      ),
       body: ListView(
         children: [
           Stack(
@@ -35,18 +37,19 @@ class RecipeDetailsPage extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                     borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(15.0),
-                        bottomRight: Radius.circular(15.0)),
+                        bottomLeft: Radius.circular(20.0),
+                        bottomRight: Radius.circular(20.0)),
                     boxShadow: [
                       BoxShadow(
                         color: const Color(0xffadadad).withAlpha(160),
                         spreadRadius: 2.0,
                         blurRadius: 10.0,
-                      )
+                        offset: Offset(0.0, 5.0),
+                      ),
                     ]),
               ),
               Positioned(
-                right: 6.0,
+                right: 5.0,
                 top: 6.0,
                 child: Container(
                   margin: EdgeInsets.only(top: 8.0, right: 8.0),
@@ -64,18 +67,39 @@ class RecipeDetailsPage extends StatelessWidget {
                         isFavorite
                             ? Icons.favorite_rounded
                             : Icons.favorite_outline_rounded,
-                        color: Colors.red.withAlpha(isFavorite ? 255 : 160),
+                        color: Colors.red.withAlpha(isFavorite ? 255 : 180),
                         size: 30.0,
                       ),
                     ),
                   ),
                 ),
-              )
+              ),
+              Positioned(
+                left: 10.0,
+                top: 6.0,
+                child: Container(
+                  margin: EdgeInsets.only(top: 8.0, right: 8.0),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: theme.scaffoldBackgroundColor.withAlpha(160),
+                  ),
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(
+                      Icons.arrow_back,
+                      color: theme.primaryColorDark,
+                      size: 30.0,
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
           Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+            padding: const EdgeInsets.symmetric(
+                horizontal: fixedHorizontalPadding, vertical: 12.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -83,7 +107,7 @@ class RecipeDetailsPage extends StatelessWidget {
                 Icon(
                   Icons.star_rounded,
                   color: Colors.yellow[800],
-                  size: 20.0,
+                  size: 25.0,
                 ),
                 Column(
                   children: [
@@ -101,8 +125,45 @@ class RecipeDetailsPage extends StatelessWidget {
               ],
             ),
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Icon(
+                    Icons.watch_later,
+                    color: theme.primaryColorDark.withAlpha(120),
+                    size: 20.0,
+                  ),
+                  Column(
+                    children: [
+                      SizedBox(height: 3.0),
+                      Text('  ${recipe.cookingDuration} min',
+                          style: theme.textTheme.headline3!
+                              .copyWith(color: theme.primaryColorDark)),
+                    ],
+                  ),
+                ],
+              ),
+              HeadingWidget(title: 'مدة التحضير'),
+            ],
+          ),
+          if (recipe.ingredients.length > 0) HeadingWidget(title: 'المقادير'),
+          if (recipe.ingredients.length > 0)
+            ElementsColumn(
+                elements: recipe.ingredients,
+                fixedHorizontalPadding: fixedHorizontalPadding),
+          SizedBox(height: fixedHorizontalPadding),
+          if (recipe.cookGuides.length > 0)
+            HeadingWidget(title: 'طريقة التحضير'),
+          if (recipe.cookGuides.length > 0)
+            ElementsColumn(
+                elements: recipe.cookGuides,
+                fixedHorizontalPadding: fixedHorizontalPadding),
         ],
       ),
     );
   }
 }
+
