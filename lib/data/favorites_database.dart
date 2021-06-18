@@ -15,7 +15,12 @@ class FavoritesDatabase {
 
   Future<Database> _initDB(String dbName) async {
     print('hello world');
-    final dbPath = await getDatabasesPath();
+    String dbPath = 'hello-world';
+    try {
+      dbPath = await getDatabasesPath();
+    } catch (e) {
+      print(e);
+    }
     // if (dbPath != null)
     print("dbPath = [$dbPath]");
 
