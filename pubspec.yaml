@@ -32,6 +32,7 @@ dependencies:
   google_fonts_arabic: ^1.1.7
   provider: ^5.0.0
   sqflite: ^2.0.0+3
+  path_provider: ^2.0.2
   # sqlflite
 
 dev_dependencies:

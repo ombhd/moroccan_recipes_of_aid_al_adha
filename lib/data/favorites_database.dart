@@ -1,6 +1,8 @@
+import 'dart:io';
+
 import 'package:aid_adha_recipes/models/favorites_model.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:sqflite/sqlite_api.dart';
 
 class FavoritesDatabase {
   static final instance = FavoritesDatabase._init();
@@ -13,17 +15,13 @@ class FavoritesDatabase {
     return _database!;
   }
 
-  Future<Database> _initDB(String dbName) async {
-    print('hello world');
-    String dbPath = 'hello-world';
-    try {
-      dbPath = await getDatabasesPath();
-    } catch (e) {
-      print(e);
-    }
-    // if (dbPath != null)
-    print("dbPath = [$dbPath]");
+  Future<String> getDBPath() async {
+    Directory? appDocDir = await getExternalStorageDirectory();
+    return appDocDir!.path;
+  }
 
+  Future<Database> _initDB(String dbName) async {
+    String dbPath = await getDBPath();
     final path = dbPath + "/" + dbName;
     print("dbPath = [$dbPath] and path = [$path]");
     return await openDatabase(path, version: 1, onCreate: _createDB);
@@ -31,11 +29,13 @@ class FavoritesDatabase {
 
   Future _createDB(Database db, int version) async {
     final idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
+    final favsIdType = 'INT';
     final textType = 'TEXT NOT NULL';
 
     await db.execute('''
     CREATE TABLE $favoritesTable (
       ${FavoritesFields.id} $idType,
+      ${FavoritesFields.favsId} $favsIdType,
       ${FavoritesFields.idsStringList} $textType
     )
     ''');
@@ -52,13 +52,13 @@ class FavoritesDatabase {
     final map = await db.query(
       favoritesTable,
       columns: ['${FavoritesFields.idsStringList}'],
-      where: '${FavoritesFields.id} = ?',
+      where: '${FavoritesFields.favsId} = ?',
       whereArgs: [id],
     );
     if (map.isNotEmpty)
       return Favorites.fromJSON(map.first);
     else
-      throw Exception('favs ID $id not found!');
+      return Favorites([]);
   }
 
   Future<int> updateDB(Favorites favs) async {
@@ -66,7 +66,7 @@ class FavoritesDatabase {
     return db.update(
       favoritesTable,
       favs.toJson(),
-      where: '${FavoritesFields.id} = ?',
+      where: '${FavoritesFields.favsId} = ?',
       whereArgs: [Favorites.getID()],
     );
   }

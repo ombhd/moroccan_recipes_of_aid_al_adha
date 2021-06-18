@@ -43,7 +43,7 @@ class RecipesList extends StatelessWidget {
                   child: Stack(
                     children: [
                       Container(
-                        height: size.height * 25,
+                        height: size.height * 30,
                         width: double.infinity,
                         decoration: BoxDecoration(
                             image: DecorationImage(

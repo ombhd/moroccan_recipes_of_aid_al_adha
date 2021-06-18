@@ -29,7 +29,7 @@ class RecipeDetailsPage extends StatelessWidget {
           Stack(
             children: [
               Container(
-                height: size.height * 40,
+                height: size.height * 45,
                 width: double.infinity,
                 decoration: BoxDecoration(
                     image: DecorationImage(
@@ -166,4 +166,3 @@ class RecipeDetailsPage extends StatelessWidget {
     );
   }
 }
-

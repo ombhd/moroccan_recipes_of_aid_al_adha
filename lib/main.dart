@@ -8,11 +8,10 @@ import 'pages/nav_page.dart/nav_page.dart';
 import 'utils/routes.dart';
 import 'utils/theme.dart';
 
-
-void main() async{
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   final recipes = await initRecipes();
-  if (recipes == null)
-    
+
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider.value(value: recipes),

@@ -5,6 +5,7 @@ final String favoritesTable = "favorites";
 
 class FavoritesFields {
   static final String id = "_id";
+  static final String favsId = "favsId";
   static final String idsStringList = "idsStringList";
 }
 
@@ -27,7 +28,10 @@ class Favorites extends ChangeNotifier {
       FavoritesDatabase.instance.updateDB(this);
     } on StateError {
       _items.add(recipeId);
-      FavoritesDatabase.instance.updateDB(this);
+      if (_items.length == 1)
+        FavoritesDatabase.instance.create(this);
+      else
+        FavoritesDatabase.instance.updateDB(this);
     }
     notifyListeners();
   }
@@ -53,7 +57,7 @@ class Favorites extends ChangeNotifier {
 
   Map<String, Object?> toJson() {
     return {
-      FavoritesFields.id: _favoritesSQLID,
+      FavoritesFields.favsId: _favoritesSQLID,
       FavoritesFields.idsStringList: this.getFavoritesString(),
     };
   }
