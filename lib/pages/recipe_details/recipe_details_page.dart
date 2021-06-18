@@ -5,6 +5,7 @@ import 'package:aid_adha_recipes/utils/context_size.dart';
 import 'package:aid_adha_recipes/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:share/share.dart';
 
 import 'components/elements_column.dart';
 
@@ -161,6 +162,35 @@ class RecipeDetailsPage extends StatelessWidget {
             ElementsColumn(
                 elements: recipe.cookGuides,
                 fixedHorizontalPadding: fixedHorizontalPadding),
+          Container(
+            margin: EdgeInsets.symmetric(
+                horizontal: size.width * 30, vertical: fixedHorizontalPadding),
+            padding: EdgeInsets.symmetric(vertical: fixedHorizontalPadding),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15.0),
+                color: theme.accentColor),
+            child: GestureDetector(
+              onTap: () {
+                Share.shareFiles(['djfj']);
+                Share.share('sharing the recipe with link to the app ');
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.share,
+                    color: theme.primaryColorDark,
+                  ),
+                  SizedBox(width: 12.0),
+                  Text(
+                    'شاركي الوصفة',
+                    textDirection: TextDirection.rtl,
+                    style: theme.textTheme.caption,
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
