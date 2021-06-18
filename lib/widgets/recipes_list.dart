@@ -144,6 +144,7 @@ class RecipesList extends StatelessWidget {
                     ],
                   ),
                 ),
+                
               ],
             ),
           );
@@ -161,5 +162,6 @@ class RecipesList extends StatelessWidget {
       );
     else
       return Center();
+    
   }
 }
