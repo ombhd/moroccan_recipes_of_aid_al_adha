@@ -1,22 +1,80 @@
-import 'package:aid_adha_recipes/models/Recipes.dart';
-import 'package:aid_adha_recipes/models/favorites_model.dart';
-import 'package:aid_adha_recipes/pages/recipe_details/components/heading.dart';
-import 'package:aid_adha_recipes/utils/context_size.dart';
-import 'package:aid_adha_recipes/utils/theme.dart';
+import 'dart:io';
+
+import 'package:aid_adha_recipes/utils/ads_ids.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 
+import '../../models/recipes.dart';
+import '../../models/favorites_model.dart';
+import '../../utils/context_size.dart';
+import '../../utils/theme.dart';
 import 'components/elements_column.dart';
+import 'components/heading.dart';
 
-class RecipeDetailsPage extends StatelessWidget {
+class RecipeDetailsPage extends StatefulWidget {
   static const routeName = '/recipe-details';
 
   static const double fixedHorizontalPadding = 12.0;
 
+  static const String sharedText = '';
+  static const String linkToPlayStore =
+      'https://playstore.google.com/store/shop-app-demo';
+  static const String linkToAppStore =
+      'https://appstore.apple.com/store/shop-app-demo';
+
   const RecipeDetailsPage({
     Key? key,
   }) : super(key: key);
+
+  @override
+  _RecipeDetailsPageState createState() => _RecipeDetailsPageState();
+}
+
+class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
+  bool isLoaded = false;
+
+  late BannerAd _ad;
+
+  @override
+  void initState() {
+    super.initState();
+    _ad = BannerAd(
+      adUnitId: bannerId,
+      request: AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(onAdLoaded: (_) {
+        setState(() {
+          isLoaded = true;
+        });
+      }, onAdFailedToLoad: (ad, error) {
+        print('ad failed to load, Error: $error');
+      }),
+    );
+    _ad.load();
+  }
+
+  @override
+  void dispose() {
+    _ad.dispose();
+    super.dispose();
+  }
+
+  Widget buildBannerAd() {
+    if (isLoaded)
+      return Container(
+        width: _ad.size.width.toDouble(),
+        alignment: Alignment.center,
+        child: AdWidget(
+          ad: _ad,
+        ),
+      );
+    else
+      return CircularProgressIndicator();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,17 +82,20 @@ class RecipeDetailsPage extends StatelessWidget {
     final recipes = Provider.of<Recipes>(context);
     final recipe = recipes.getRecipeByID(id);
     final size = SizeContext(context);
+
     return Scaffold(
       body: ListView(
         children: [
+          // recipe image with like button and back button
           Stack(
             children: [
+              // image container
               Container(
                 height: size.height * 45,
                 width: double.infinity,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage(recipe.imageAsset),
+                      image: AssetImage(recipe.imageAsset),
                       fit: BoxFit.cover,
                     ),
                     borderRadius: BorderRadius.only(
@@ -49,6 +110,8 @@ class RecipeDetailsPage extends StatelessWidget {
                       ),
                     ]),
               ),
+
+              // like button
               Positioned(
                 right: 5.0,
                 top: 6.0,
@@ -75,6 +138,8 @@ class RecipeDetailsPage extends StatelessWidget {
                   ),
                 ),
               ),
+
+              // back button
               Positioned(
                 left: 10.0,
                 top: 6.0,
@@ -98,9 +163,12 @@ class RecipeDetailsPage extends StatelessWidget {
               ),
             ],
           ),
+
+          // title and rating row
           Padding(
             padding: const EdgeInsets.symmetric(
-                horizontal: fixedHorizontalPadding, vertical: 12.0),
+                horizontal: RecipeDetailsPage.fixedHorizontalPadding,
+                vertical: 12.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -126,6 +194,8 @@ class RecipeDetailsPage extends StatelessWidget {
               ],
             ),
           ),
+
+          // cooking duration row
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -150,29 +220,45 @@ class RecipeDetailsPage extends StatelessWidget {
               HeadingWidget(title: 'مدة التحضير'),
             ],
           ),
+
+          // ingredients column
           if (recipe.ingredients.length > 0) HeadingWidget(title: 'المقادير'),
           if (recipe.ingredients.length > 0)
             ElementsColumn(
                 elements: recipe.ingredients,
-                fixedHorizontalPadding: fixedHorizontalPadding),
-          SizedBox(height: fixedHorizontalPadding),
+                fixedHorizontalPadding:
+                    RecipeDetailsPage.fixedHorizontalPadding),
+          SizedBox(height: RecipeDetailsPage.fixedHorizontalPadding),
+
+          // banner ad
+          buildBannerAd(),
+
+          // cooking guides column
           if (recipe.cookGuides.length > 0)
             HeadingWidget(title: 'طريقة التحضير'),
           if (recipe.cookGuides.length > 0)
             ElementsColumn(
                 elements: recipe.cookGuides,
-                fixedHorizontalPadding: fixedHorizontalPadding),
+                fixedHorizontalPadding:
+                    RecipeDetailsPage.fixedHorizontalPadding),
+
+          // share recipe button
           Container(
             margin: EdgeInsets.symmetric(
-                horizontal: size.width * 30, vertical: fixedHorizontalPadding),
-            padding: EdgeInsets.symmetric(vertical: fixedHorizontalPadding),
+                horizontal: size.width * 30,
+                vertical: RecipeDetailsPage.fixedHorizontalPadding),
+            padding: EdgeInsets.symmetric(
+                vertical: RecipeDetailsPage.fixedHorizontalPadding),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15.0),
                 color: theme.accentColor),
             child: GestureDetector(
-              onTap: () {
-                Share.shareFiles(['djfj']);
-                Share.share('sharing the recipe with link to the app ');
+              onTap: () async {
+                // saving recipe image to temp directory
+                File f = await getImageFileFromAssets(
+                    recipe.imageAsset.split('/').last);
+                // share image with some text (recipe title + app link in playstore)
+                Share.shareFiles([f.path], text: 'hello friend');
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -183,7 +269,7 @@ class RecipeDetailsPage extends StatelessWidget {
                   ),
                   SizedBox(width: 12.0),
                   Text(
-                    'شاركي الوصفة',
+                    'شارك الوصفة',
                     textDirection: TextDirection.rtl,
                     style: theme.textTheme.caption,
                   ),
@@ -196,3 +282,19 @@ class RecipeDetailsPage extends StatelessWidget {
     );
   }
 }
+
+Future<File> getImageFileFromAssets(String path) async {
+  final fullPath = '${(await getTemporaryDirectory()).path}/$path';
+  File file = File(fullPath);
+  if (await file.exists()) return file;
+
+  final byteData = await rootBundle.load('assets/images/$path');
+
+  file = File('${(await getTemporaryDirectory()).path}/$path');
+  await file.writeAsBytes(byteData.buffer
+      .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+  return file;
+}
+
+
+// String get sharedText => 

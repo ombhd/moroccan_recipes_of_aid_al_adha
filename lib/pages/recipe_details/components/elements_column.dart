@@ -1,4 +1,4 @@
-import 'package:aid_adha_recipes/utils/theme.dart';
+import '../../../utils/theme.dart';
 import 'package:flutter/material.dart';
 
 import '../recipe_details_page.dart';

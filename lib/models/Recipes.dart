@@ -9,7 +9,7 @@ class Recipes extends ChangeNotifier {
   List<Recipe> items = [
     Recipe(
       id: 'boulfaf',
-      imageAsset: 'https://i32.servimg.com/u/f32/11/02/83/55/52342010.jpg',
+      imageAsset: 'assets/images/boulfaf.jpg',
       title: 'بولفاف',
       rating: 5,
       ingredients: [
@@ -31,7 +31,7 @@ class Recipes extends ChangeNotifier {
     ),
     Recipe(
       id: 'chwa',
-      imageAsset: 'https://mgl.skyrock.net/big.40552923.jpg?42753390',
+      imageAsset: 'assets/images/del3a.jpg',
       title: 'الضلعة او الشواء',
       rating: 4.3,
       ingredients: [],
@@ -41,7 +41,7 @@ class Recipes extends ChangeNotifier {
     ),
     Recipe(
       id: 'boulfaf',
-      imageAsset: 'https://i32.servimg.com/u/f32/11/02/83/55/52342010.jpg',
+      imageAsset: 'assets/images/boulfaf.jpg',
       title: 'بولفاف',
       rating: 4.5,
       ingredients: [
@@ -63,7 +63,7 @@ class Recipes extends ChangeNotifier {
     ),
     Recipe(
       id: 'boulfaf',
-      imageAsset: 'https://i32.servimg.com/u/f32/11/02/83/55/52342010.jpg',
+      imageAsset: 'assets/images/boulfaf.jpg',
       title: 'بولفاف',
       rating: 4.5,
       ingredients: [
@@ -85,7 +85,7 @@ class Recipes extends ChangeNotifier {
     ),
     Recipe(
       id: 'boulfaf',
-      imageAsset: 'https://i32.servimg.com/u/f32/11/02/83/55/52342010.jpg',
+      imageAsset: 'assets/images/boulfaf.jpg',
       title: 'بولفاف',
       rating: 4.7,
       ingredients: [
@@ -107,7 +107,7 @@ class Recipes extends ChangeNotifier {
     ),
     Recipe(
       id: 'boulfaf',
-      imageAsset: 'https://i32.servimg.com/u/f32/11/02/83/55/52342010.jpg',
+      imageAsset: 'assets/images/boulfaf.jpg',
       title: 'بولفاف',
       rating: 4.7,
       ingredients: [
@@ -129,7 +129,7 @@ class Recipes extends ChangeNotifier {
     ),
     Recipe(
       id: 'boulfaf',
-      imageAsset: 'https://i32.servimg.com/u/f32/11/02/83/55/52342010.jpg',
+      imageAsset: 'assets/images/boulfaf.jpg',
       title: 'بولفاف',
       rating: 4.7,
       ingredients: [
@@ -151,7 +151,7 @@ class Recipes extends ChangeNotifier {
     ),
     Recipe(
       id: 'boulfaf',
-      imageAsset: 'https://i32.servimg.com/u/f32/11/02/83/55/52342010.jpg',
+      imageAsset: 'assets/images/boulfaf.jpg',
       title: 'بولفاف',
       rating: 4.7,
       ingredients: [

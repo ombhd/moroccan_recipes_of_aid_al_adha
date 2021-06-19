@@ -1,7 +1,7 @@
-import 'package:aid_adha_recipes/models/recipe_model.dart';
-import 'package:aid_adha_recipes/pages/recipe_details/recipe_details_page.dart';
+import '../models/recipe_model.dart';
+import '../pages/recipe_details/recipe_details_page.dart';
 
-import '../models/Recipes.dart';
+import '../models/recipes.dart';
 import '../models/favorites_model.dart';
 import '../utils/context_size.dart';
 import '../utils/theme.dart';
@@ -47,7 +47,7 @@ class RecipesList extends StatelessWidget {
                         width: double.infinity,
                         decoration: BoxDecoration(
                             image: DecorationImage(
-                              image: NetworkImage(items[index].imageAsset),
+                              image: AssetImage(items[index].imageAsset),
                               fit: BoxFit.cover,
                             ),
                             borderRadius: BorderRadius.circular(12),

@@ -1,8 +1,9 @@
 import 'dart:io';
 
-import 'package:aid_adha_recipes/models/favorites_model.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
+
+import '../models/favorites_model.dart';
 
 class FavoritesDatabase {
   static final instance = FavoritesDatabase._init();

@@ -1,4 +1,4 @@
-import 'package:aid_adha_recipes/data/favorites_database.dart';
+import '../data/favorites_database.dart';
 import 'package:flutter/material.dart';
 
 final String favoritesTable = "favorites";
