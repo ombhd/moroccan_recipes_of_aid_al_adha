@@ -66,14 +66,13 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
   Widget buildBannerAd() {
     if (isLoaded)
       return Container(
+        margin: EdgeInsets.symmetric(vertical: 15.0),
         width: _ad.size.width.toDouble(),
+        height: _ad.size.height.toDouble(),
         alignment: Alignment.center,
-        child: AdWidget(
-          ad: _ad,
-        ),
+        child: AdWidget(ad: _ad),
       );
-    else
-      return CircularProgressIndicator();
+    return Center(child: CircularProgressIndicator(color: theme.primaryColor));
   }
 
   @override

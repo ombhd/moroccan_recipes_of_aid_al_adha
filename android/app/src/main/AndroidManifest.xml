@@ -3,6 +3,10 @@
    <application
         android:label="الوصفات المغربية لعيد الأضحى"
         android:icon="@mipmap/ic_launcher">
+        <!-- Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713 -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-9852293312390137~6797481402"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
