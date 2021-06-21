@@ -1,5 +1,5 @@
-name: aid_adha_recipes
-description: A new Flutter project.
+name: chehiwat_al_aid
+description: A flutter app that presents moroccan recipes for the great islamic aid which is aid al-adha.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -37,7 +37,15 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_launcher_icons: "^0.8.0"
+  flutter_launcher_icons: ^0.8.0
+  flutter_native_splash: any
+
+flutter_native_splash:
+  color: "#c5e1a5"
+  image: assets/app_logo.png
+  android: true
+  ios: true
+
 
 flutter_icons:
   android: true

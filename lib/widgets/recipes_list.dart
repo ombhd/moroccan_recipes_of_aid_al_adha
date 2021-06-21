@@ -46,6 +46,7 @@ class RecipesList extends StatelessWidget {
                         height: size.height * 30,
                         width: double.infinity,
                         decoration: BoxDecoration(
+                            color: theme.accentColor,
                             image: DecorationImage(
                               image: AssetImage(items[index].imageAsset),
                               fit: BoxFit.cover,

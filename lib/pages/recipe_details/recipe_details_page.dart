@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:aid_adha_recipes/utils/ads_ids.dart';
+import 'package:chehiwat_al_aid/utils/ads_ids.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -20,10 +20,18 @@ class RecipeDetailsPage extends StatefulWidget {
 
   static const double fixedHorizontalPadding = 12.0;
 
-  static const defaultSharedDetails = ': تجدين تفاصيل هذه الوصفة في تطبيق الوصفات المغربية لعيد الأضحى بما فيها المقادير و طريقة التحضير.';
-  static const defaultSharedText1 = 'يمكنك تحميل التطبيق من بلاي ستور عبر الرابط التالي:';
-  static const String linkToPlayStore = 'https://play.google.com/store/apps/details?id=com.ombhd.chehiwat_al_aid';
-  static const String textToShare = defaultSharedDetails + '\n\n' + defaultSharedText1 + '\n\n' + linkToPlayStore + '\n';
+  static const defaultSharedDetails =
+      ': تجدين تفاصيل هذه الوصفة في تطبيق الوصفات المغربية لعيد الأضحى بما فيها المقادير و طريقة التحضير.';
+  static const defaultSharedText1 =
+      'يمكنك تحميل التطبيق من بلاي ستور عبر الرابط التالي:';
+  static const String linkToPlayStore =
+      'https://play.google.com/store/apps/details?id=com.ombhd.chehiwat_al_aid';
+  static const String textToShare = defaultSharedDetails +
+      '\n\n' +
+      defaultSharedText1 +
+      '\n\n' +
+      linkToPlayStore +
+      '\n';
 
   const RecipeDetailsPage({
     Key? key,
@@ -92,21 +100,24 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
                 height: size.height * 45,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(recipe.imageAsset),
-                      fit: BoxFit.cover,
+                  // color: theme.accentColor,
+                  image: DecorationImage(
+                    image: AssetImage(recipe.imageAsset),
+                    fit: BoxFit.cover,
+                  ),
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(20.0),
+                      bottomRight: Radius.circular(20.0)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color(0xffadadad).withAlpha(160),
+                      spreadRadius: 2.0,
+                      blurRadius: 10.0,
+                      offset: Offset(0.0, 5.0),
                     ),
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(20.0),
-                        bottomRight: Radius.circular(20.0)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: const Color(0xffadadad).withAlpha(160),
-                        spreadRadius: 2.0,
-                        blurRadius: 10.0,
-                        offset: Offset(0.0, 5.0),
-                      ),
-                    ]),
+                  ],
+                  color: const Color(0xffffffff),
+                ),
               ),
 
               // like button
@@ -252,7 +263,8 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
                 color: theme.accentColor),
             child: GestureDetector(
               onTap: () async {
-                final String finalSharedText =  recipe.title + RecipeDetailsPage.textToShare;
+                final String finalSharedText =
+                    recipe.title + RecipeDetailsPage.textToShare;
 
                 // saving recipe image to temp directory
                 File f = await getImageFileFromAssets(
