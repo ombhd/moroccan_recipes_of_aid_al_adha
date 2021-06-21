@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:chehiwat_al_aid/utils/ads_ids.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -10,6 +9,7 @@ import 'package:share_plus/share_plus.dart';
 
 import '../../models/recipes.dart';
 import '../../models/favorites_model.dart';
+import '../../utils/ads_ids.dart';
 import '../../utils/context_size.dart';
 import '../../utils/theme.dart';
 import 'components/elements_column.dart';
@@ -193,6 +193,7 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
                     Text(' ${recipe.rating}', style: theme.textTheme.headline4),
                   ],
                 ),
+                SizedBox(width: 15.0),
                 Expanded(
                   child: Text(
                     recipe.title,
@@ -307,6 +308,3 @@ Future<File> getImageFileFromAssets(String path) async {
       .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
   return file;
 }
-
-
-// String get sharedText => 

@@ -118,10 +118,15 @@ class RecipesList extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Text(
-                            items[index].title,
-                            textAlign: TextAlign.right,
-                            style: theme.textTheme.headline6,
+                          SizedBox(width: 15.0),
+                          Expanded(
+                            child: Text(
+                              items[index].title,
+                              textAlign: TextAlign.right,
+                              style: theme.textTheme.headline6,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
                           ),
                         ],
                       ),

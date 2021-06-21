@@ -1,5 +1,6 @@
-import '../data/favorites_database.dart';
 import 'package:flutter/material.dart';
+
+import '../data/favorites_database.dart';
 
 final String favoritesTable = "favorites";
 

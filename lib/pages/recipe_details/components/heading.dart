@@ -1,6 +1,6 @@
-import '../../../utils/theme.dart';
 import 'package:flutter/material.dart';
 
+import '../../../utils/theme.dart';
 import '../recipe_details_page.dart';
 
 class HeadingWidget extends StatelessWidget {
