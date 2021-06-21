@@ -14,17 +14,12 @@ import 'utils/theme.dart';
 void main() async {
   // initializations
   WidgetsFlutterBinding.ensureInitialized();
-  print('done 0');
-  InitializationStatus _test = await MobileAds.instance.initialize();
-  print('status = ${_test.toString()}');
-  print('done 1');
+  MobileAds.instance.initialize();
   final recipes = await initRecipes();
-  print('done 2');
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  print('done 3');
 
   runApp(MultiProvider(
     providers: [
