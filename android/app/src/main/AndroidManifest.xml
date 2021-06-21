@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.aid_adha_recipes">
+    package="com.ombhd.chehiwat_al_aid">
    <application
         android:label="الوصفات المغربية لعيد الأضحى"
         android:icon="@mipmap/ic_launcher">

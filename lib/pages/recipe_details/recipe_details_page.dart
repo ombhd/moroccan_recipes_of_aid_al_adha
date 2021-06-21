@@ -20,11 +20,10 @@ class RecipeDetailsPage extends StatefulWidget {
 
   static const double fixedHorizontalPadding = 12.0;
 
-  static const String sharedText = '';
-  static const String linkToPlayStore =
-      'https://playstore.google.com/store/shop-app-demo';
-  static const String linkToAppStore =
-      'https://appstore.apple.com/store/shop-app-demo';
+  static const defaultSharedDetails = ': تجدين تفاصيل هذه الوصفة في تطبيق الوصفات المغربية لعيد الأضحى بما فيها المقادير و طريقة التحضير.';
+  static const defaultSharedText1 = 'يمكنك تحميل التطبيق من بلاي ستور عبر الرابط التالي:';
+  static const String linkToPlayStore = 'https://play.google.com/store/apps/details?id=com.ombhd.chehiwat_al_aid';
+  static const String textToShare = defaultSharedDetails + '\n\n' + defaultSharedText1 + '\n\n' + linkToPlayStore + '\n';
 
   const RecipeDetailsPage({
     Key? key,
@@ -253,11 +252,13 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
                 color: theme.accentColor),
             child: GestureDetector(
               onTap: () async {
+                final String finalSharedText =  recipe.title + RecipeDetailsPage.textToShare;
+
                 // saving recipe image to temp directory
                 File f = await getImageFileFromAssets(
                     recipe.imageAsset.split('/').last);
                 // share image with some text (recipe title + app link in playstore)
-                Share.shareFiles([f.path], text: 'hello friend');
+                Share.shareFiles([f.path], text: finalSharedText);
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

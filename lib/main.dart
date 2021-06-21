@@ -14,12 +14,17 @@ import 'utils/theme.dart';
 void main() async {
   // initializations
   WidgetsFlutterBinding.ensureInitialized();
-  MobileAds.instance.initialize();
+  print('done 0');
+  InitializationStatus _test = await MobileAds.instance.initialize();
+  print('status = ${_test.toString()}');
+  print('done 1');
   final recipes = await initRecipes();
+  print('done 2');
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+  print('done 3');
 
   runApp(MultiProvider(
     providers: [
@@ -28,7 +33,7 @@ void main() async {
     ],
     child: MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'aid al-adha recipes',
+      title: 'chehiwat l3id lkbir',
       theme: theme,
       initialRoute: NavPage.routeName,
       routes: routes,

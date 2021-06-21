@@ -1,4 +1,4 @@
-package com.example.aid_adha_recipes
+package com.ombhd.chehiwat_al_aid
 
 import io.flutter.embedding.android.FlutterActivity
 
