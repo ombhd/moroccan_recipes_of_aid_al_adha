@@ -28,7 +28,7 @@ void main() async {
     ],
     child: MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'chehiwat l3id lkbir',
+      title: 'الوصفات المغربية لعيد الأضحى',
       theme: theme,
       initialRoute: NavPage.routeName,
       routes: routes,
