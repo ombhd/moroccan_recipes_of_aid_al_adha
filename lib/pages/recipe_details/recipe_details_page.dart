@@ -58,6 +58,7 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
           isLoaded = true;
         });
       }, onAdFailedToLoad: (ad, error) {
+        _ad.dispose();
         print('ad failed to load, Error: $error');
       }),
     );
@@ -79,7 +80,7 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
         alignment: Alignment.center,
         child: AdWidget(ad: _ad),
       );
-    return Center(child: CircularProgressIndicator(color: theme.primaryColor));
+    return Container();
   }
 
   @override

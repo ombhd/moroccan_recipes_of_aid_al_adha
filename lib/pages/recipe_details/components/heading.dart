@@ -16,8 +16,9 @@ class HeadingWidget extends StatelessWidget {
           left: RecipeDetailsPage.fixedHorizontalPadding,
           bottom: 4.0),
       child: Text(
-        ': ' + title,
+        title + ' :',
         textAlign: TextAlign.right,
+        textDirection: TextDirection.rtl,
         style:
             theme.textTheme.headline4!.copyWith(color: theme.primaryColorDark),
       ),

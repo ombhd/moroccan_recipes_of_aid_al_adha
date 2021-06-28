@@ -97,7 +97,7 @@ class _NavPageState extends State<NavPage> {
               ),
               tabs: [
                 GButton(
-                    icon: Icons.favorite,
+                    icon: Icons.favorite_rounded,
                     text: 'المفضلة',
                     iconActiveColor: Colors.red,
                     backgroundColor: Colors.red.withAlpha(40)),
