@@ -24,7 +24,6 @@ class FavoritesDatabase {
   Future<Database> _initDB(String dbName) async {
     String dbPath = await getDBPath();
     final path = dbPath + "/" + dbName;
-    print("dbPath = [$dbPath] and path = [$path]");
     return await openDatabase(path, version: 1, onCreate: _createDB);
   }
 

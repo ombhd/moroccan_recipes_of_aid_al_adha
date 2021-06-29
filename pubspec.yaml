@@ -32,7 +32,8 @@ dependencies:
   path_provider: ^2.0.2
   file_picker: ^3.0.2+2
   share_plus: ^2.1.4
-  google_mobile_ads: ^0.13.0
+  # google_mobile_ads: ^0.13.0
+  native_admob_flutter: ^1.4.0
 
 dev_dependencies:
   flutter_test:

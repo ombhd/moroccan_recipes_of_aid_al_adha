@@ -1,7 +1,7 @@
 // @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:native_admob_flutter/native_admob_flutter.dart';
 import 'package:provider/provider.dart';
 
 import 'data/favorites_database.dart';
@@ -14,7 +14,7 @@ import 'utils/theme.dart';
 void main() async {
   // initializations
   WidgetsFlutterBinding.ensureInitialized();
-  MobileAds.instance.initialize();
+  MobileAds.initialize();
   final recipes = await initRecipes();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

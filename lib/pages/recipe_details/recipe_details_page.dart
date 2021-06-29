@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:native_admob_flutter/native_admob_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -44,43 +44,30 @@ class RecipeDetailsPage extends StatefulWidget {
 class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
   bool isLoaded = false;
 
-  late BannerAd _ad;
+  final bannerController = BannerAdController();
+  double _bannerAdHeight = 0;
 
   @override
   void initState() {
     super.initState();
-    _ad = BannerAd(
-      adUnitId: bannerId,
-      request: AdRequest(),
-      size: AdSize.banner,
-      listener: BannerAdListener(onAdLoaded: (_) {
-        setState(() {
-          isLoaded = true;
-        });
-      }, onAdFailedToLoad: (ad, error) {
-        _ad.dispose();
-        print('ad failed to load, Error: $error');
-      }),
-    );
-    _ad.load();
+    bannerController.onEvent.listen((e) {
+      final event = e.keys.first;
+      final info = e.values.first;
+      switch (event) {
+        case BannerAdEvent.loaded:
+          setState(() => _bannerAdHeight = (info as int).toDouble());
+          break;
+        default:
+          break;
+      }
+    });
+    bannerController.load();
   }
 
   @override
   void dispose() {
-    _ad.dispose();
+    bannerController.dispose();
     super.dispose();
-  }
-
-  Widget buildBannerAd() {
-    if (isLoaded)
-      return Container(
-        margin: EdgeInsets.symmetric(vertical: 15.0),
-        width: _ad.size.width.toDouble(),
-        height: _ad.size.height.toDouble(),
-        alignment: Alignment.center,
-        child: AdWidget(ad: _ad),
-      );
-    return Container();
   }
 
   @override
@@ -101,7 +88,6 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
                 height: size.height * 45,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  // color: theme.accentColor,
                   image: DecorationImage(
                     image: AssetImage(recipe.imageAsset),
                     fit: BoxFit.cover,
@@ -242,7 +228,19 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
           SizedBox(height: RecipeDetailsPage.fixedHorizontalPadding),
 
           // banner ad
-          buildBannerAd(),
+          BannerAd(
+            unitId: bannerId,
+            controller: bannerController,
+            builder: (context, child) {
+              return Container(
+                margin: EdgeInsets.only(bottom: 8.0),
+                height: _bannerAdHeight,
+                color: theme.scaffoldBackgroundColor,
+                child: child,
+              );
+            },
+            size: BannerSize.BANNER,
+          ),
 
           // cooking guides column
           if (recipe.cookGuides.length > 0)
