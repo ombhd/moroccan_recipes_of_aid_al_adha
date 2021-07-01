@@ -55,6 +55,8 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
         case BannerAdEvent.loaded:
           setState(() => _bannerAdHeight = (info as int).toDouble());
           break;
+        case BannerAdEvent.loadFailed:
+          return;
         default:
           break;
       }
