@@ -42,8 +42,6 @@ class RecipeDetailsPage extends StatefulWidget {
 }
 
 class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
-  bool isLoaded = false;
-
   final bannerController = BannerAdController();
   double _bannerAdHeight = 0;
 
