@@ -2,14 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:native_admob_flutter/native_admob_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../models/recipes.dart';
 import '../../models/favorites_model.dart';
-import '../../utils/ads_ids.dart';
 import '../../utils/context_size.dart';
 import '../../utils/theme.dart';
 import 'components/elements_column.dart';
@@ -42,33 +40,6 @@ class RecipeDetailsPage extends StatefulWidget {
 }
 
 class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
-  final bannerController = BannerAdController();
-  double _bannerAdHeight = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    bannerController.onEvent.listen((e) {
-      final event = e.keys.first;
-      final info = e.values.first;
-      switch (event) {
-        case BannerAdEvent.loaded:
-          setState(() => _bannerAdHeight = (info as int).toDouble());
-          break;
-        case BannerAdEvent.loadFailed:
-          return;
-        default:
-          break;
-      }
-    });
-    bannerController.load();
-  }
-
-  @override
-  void dispose() {
-    bannerController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -226,21 +197,6 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
                 fixedHorizontalPadding:
                     RecipeDetailsPage.fixedHorizontalPadding),
           SizedBox(height: RecipeDetailsPage.fixedHorizontalPadding),
-
-          // banner ad
-          BannerAd(
-            unitId: bannerId,
-            controller: bannerController,
-            builder: (context, child) {
-              return Container(
-                margin: EdgeInsets.only(bottom: 8.0),
-                height: _bannerAdHeight,
-                color: theme.scaffoldBackgroundColor,
-                child: child,
-              );
-            },
-            size: BannerSize.BANNER,
-          ),
 
           // cooking guides column
           if (recipe.cookGuides.length > 0)
