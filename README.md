@@ -1,6 +1,6 @@
 # The Moroccan Recipes of Aid Al-Adha
 
-An application which presents a bunch of famous moroccan recipes during aid al-adha days.
+An application which presents a bunch of famous moroccan recipes during Aid Al-Adha days.
 
 ## Screenshots
 
